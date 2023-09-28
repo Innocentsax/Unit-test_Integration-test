@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  mockapp:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 8091:8080
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_USER: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+
+  postgres:
+    image: postgres:14
+    ports:
+      - 5433:5433
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./postgres-dataz:/var/lib/postgresql/data
+    restart: always
+
+
+
